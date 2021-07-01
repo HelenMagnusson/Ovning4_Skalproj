@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace SkalProj_Datastrukturer_Minne
 {
@@ -72,12 +74,50 @@ namespace SkalProj_Datastrukturer_Minne
              * Below you can see some inspirational code to begin working.
             */
 
-            //List<string> theList = new List<string>();
-            //string input = Console.ReadLine();
-            //char nav = input[0];
-            //string value = input.substring(1);
+            List<string> theList = new List<string>();
+            bool flag = true;
+            while (flag==true)
+            {
+                //Listan har kapacitet för 4 items upp till 4, sedan ökar kapaciteten till 8, vid 8 ökar den till 16.
+                //Har säkert något med Bytes att göra? När man tar bort items ur listan minskar inte kapaciteten.
+                //Om man har ont om plats kan det vara en god ide att använda arrayer istället, speciellt om man vet
+                //hur många items man behöver, men bökigare med hanteringen.
 
-            //switch(nav){...}
+                Console.WriteLine("Enter + or - for adding or subtracting to the collection. Exit with 0.");
+                string input = Console.ReadLine();
+                char nav = input[0];
+
+                string value = input.Substring(1);
+
+                switch (nav.ToString())
+                {
+                    case "+":
+                        theList.Add(value);
+                        Console.WriteLine("Capacity;" + theList.Capacity);
+                        Console.WriteLine("count;" + theList.Count);
+                        foreach (var item in theList)
+                        {
+                            Console.WriteLine(item.ToString());
+                        }
+                        break;
+                    case "-":
+                        theList.Remove(value);
+                        Console.WriteLine("Capacity;" + theList.Capacity);
+                        Console.WriteLine("count;" + theList.Count);
+                        foreach (var item in theList)
+                        {
+                            Console.WriteLine(item.ToString());
+                        }
+                        break;
+                    case "0":
+                        flag = false;
+                        break;
+                    default:
+                        Console.WriteLine("Enter + or - for adding or subtracting to the collection. Exit with 0.");
+
+                        break;
+                }
+            }
         }
 
         /// <summary>
@@ -90,6 +130,46 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
+            Queue q = new Queue();
+            q.Enqueue("Kalle");
+            q.Enqueue("Greta");
+
+            bool flag = true;
+            while (flag == true)
+            {
+                Console.WriteLine("Enter + or - for adding or subtracting to the queue. Exit with 0.");
+                string input = Console.ReadLine();
+                char nav = input[0];
+
+                string value = input.Substring(1);
+                switch (nav.ToString())
+                {
+                    case "+":
+                        q.Enqueue(value);
+                        Console.WriteLine("count;" + q.Count);
+                        foreach (var item in q)
+                        {
+                            Console.WriteLine(item.ToString());
+                        }
+                        break;
+                    case "-":
+                        q.Dequeue();
+                        Console.WriteLine("count;" + q.Count);
+                        foreach (var item in q)
+                        {
+                            Console.WriteLine(item.ToString());
+                        }
+                        break;
+                    case "0":
+                        flag = false;
+                        break;
+                    default:
+                        Console.WriteLine("Enter + or - for adding or subtracting to the queue. Exit with 0.");
+                        break;
+                }
+
+
+            }
         }
 
         /// <summary>
@@ -102,6 +182,47 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to push or pop items
              * Make sure to look at the stack after pushing and and poping to see how it behaves
             */
+            Stack st = new Stack();
+            st.Push("Kalle");
+            st.Push("Greta");
+
+            bool flag = true;
+            while (flag == true)
+            {
+                Console.WriteLine("Enter + or - for adding or subtracting to the stack. Exit with 0.");
+                string input = Console.ReadLine();
+                char nav = input[0];
+
+                string value = input.Substring(1);
+                switch (nav.ToString())
+                {
+                    case "+":
+                        st.Push(value);
+                        Console.WriteLine("count;" + st.Count);
+                        foreach (var item in st)
+                        {
+                            Console.WriteLine(item.ToString());
+                        }
+                        break;
+                    case "-":
+                        st.Pop();
+                        Console.WriteLine("count;" + st.Count);
+                        foreach (var item in st)
+                        {
+                            Console.WriteLine(item.ToString());
+                        }
+                        break;
+                    case "0":
+                        flag = false;
+                        break;
+                    default:
+                        Console.WriteLine("Enter + or - for adding or subtracting to the stack. Exit with 0.");
+                        break;
+                }
+
+
+            }
+
         }
 
         static void CheckParanthesis()
