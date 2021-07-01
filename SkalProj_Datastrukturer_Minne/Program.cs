@@ -76,7 +76,7 @@ namespace SkalProj_Datastrukturer_Minne
 
             List<string> theList = new List<string>();
             bool flag = true;
-            while (flag==true)
+            while (flag == true)
             {
                 //Listan har kapacitet för 4 items upp till 4, sedan ökar kapaciteten till 8, vid 8 ökar den till 16.
                 //Har säkert något med Bytes att göra? När man tar bort items ur listan minskar inte kapaciteten.
@@ -189,7 +189,7 @@ namespace SkalProj_Datastrukturer_Minne
             bool flag = true;
             while (flag == true)
             {
-                Console.WriteLine("Enter + or - for adding or subtracting to the stack. Exit with 0.");
+                Console.WriteLine("Enter + or - for adding or subtracting to the stack. OR enter R and a string of text that you want to reverse for Reversetext-method. Exit with 0.");
                 string input = Console.ReadLine();
                 char nav = input[0];
 
@@ -212,6 +212,21 @@ namespace SkalProj_Datastrukturer_Minne
                             Console.WriteLine(item.ToString());
                         }
                         break;
+                    case "R":
+                        var stR = new Stack<string>();
+                        for (int i = 0; i < value.Length; i++)
+                        {
+                            stR.Push(value[i].ToString());
+                        }
+                        var stOut = new Stack<string>();
+                        string strOut = "";
+                        var nr= stR.Count;
+                        for (int i = 0; i < nr; i++)
+                        {
+                            strOut += stR.Pop();
+                        }
+                        Console.WriteLine("Reversed text: " + strOut) ;
+                        break;
                     case "0":
                         flag = false;
                         break;
@@ -232,7 +247,56 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of correct: (()), {}, [({})],  List<int> list = new List<int>() { 1, 2, 3, 4 };
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
+            var stP = new Stack<string>();
+            var stAllP = new Stack<string>();
+            Console.WriteLine("Enter a text to check for the correct numbers of paranthesis.");
+            //string input = "{ 1, (2, 3),[ 4] }";
+            //string input = "{ 1, (2, (3)),[ 4] }";
+            //string input = "{ 1,[ (2,[ 3]),[) 4](u) }";
 
+            string input=Console.ReadLine();
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (input[i].ToString().Contains("(") || input[i].ToString().Contains("[") || input[i].ToString().Contains("{") ||
+                    input[i].ToString().Contains(")") || input[i].ToString().Contains("]") || input[i].ToString().Contains("}"))
+                {
+                    if (stP.Count == 0) { stP.Push(input[i].ToString()); stAllP.Push(input[i].ToString()); }
+                    else
+                    {
+                        stAllP.Push(input[i].ToString());
+                        switch (input[i].ToString())
+                        {
+                            case ")":
+                                if (stP.Peek() == "(") { stP.Pop(); } else { stP.Push(input[i].ToString()); }
+                                break;
+                            case "]":
+                                if (stP.Peek() == "[") { stP.Pop(); } else { stP.Push(input[i].ToString()); }
+                                break;
+                            case "}":
+                                if (stP.Peek() == "{") { stP.Pop(); } else { stP.Push(input[i].ToString()); }
+                                break;
+                            default:
+                                stP.Push(input[i].ToString());
+                                break;
+                        }
+                    }
+                }
+
+            }
+
+            if (stP.Count == 0)
+            {
+                Console.WriteLine("Correct! ");
+            }
+            else
+            {
+                Console.WriteLine("Incorrect! ");
+            }
+            Console.WriteLine("All paranthesis in the stack: ");
+            foreach (var item in stAllP)
+            {
+                Console.WriteLine(item);
+            }
         }
 
     }
